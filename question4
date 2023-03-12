@@ -1,0 +1,22 @@
+/* 1. Create an empty object to store character frequencies
+2. Loop through the characters in the string
+3. If the character already exists in the object, return false
+4. Otherwise, add the character to the object with a frequency of 1
+5. If the loop completes without returning false, return true */
+
+function hasUniqueChars(s) {
+  let charFreq = {};
+  for (let i = 0; i < s.length; i++) {
+    if (charFreq[s[i]]) {
+      return false;
+    } else {
+      charFreq[s[i]] = 1;
+    }
+  }
+  return true;
+}
+
+//example
+console.log(hasUniqueChars('hello')); // Output: false
+console.log(hasUniqueChars('copyright')); // Output: true
+s.len

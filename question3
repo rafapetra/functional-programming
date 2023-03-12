@@ -1,0 +1,50 @@
+/* 1. Create an empty string and initialize a counter variable to 1
+2. Loop through the input string starting at the second character
+3. If the current character is the same as the previous character, increment the counter variable
+4. If the current character is different from the previous character, append the counter variable and previous character to the output string, reset the counter variable to 1
+5. Append the final counter variable and character to the output string
+6. Return the output string */
+
+function compressString(s) {
+  let output = '';
+  let count = 1;
+  for (let i = 1; i < s.length; i++) {
+    if (s[i] === s[i-1]) {
+      count++;
+    } else {
+      output += count.toString() + s[i-1];
+      count = 1;
+    }
+  }
+  output += count.toString() + s[s.length-1];
+  return output;
+}
+
+/* 1. If the input string is empty, return an empty string
+2. If the input string has only one character, return that character
+3. If the first character is the same as the second character, recursively call the function on the substring starting from the second character and append the first character to the result
+4. If the first character is different from the second character, recursively call the function on the substring starting from the second character, append the count of the repeated character and the first character to the result
+5. Return the result
+ */
+function compressStringRecursive(s) {
+  if (s.length === 0) {
+    return '';
+  } else if (s.length === 1) {
+    return s;
+  } else if (s[0] === s[1]) {
+    return s[0] + compressStringRecursive(s.slice(1));
+  } else {
+    let count = 1;
+    while (count < s.length && s[count] === s[0]) {
+      count++;
+    }
+    return count.toString() + s[0] + compressStringRecursive(s.slice(count));
+  }
+}
+
+
+// example
+console.log(compressString('aaaabbbccccddddd')); // Output: "4a3b4c5d"
+console.log(compressStringRecursive('aaaabbbccccddddd')); // Output: "4a3b4c5d"
+
+

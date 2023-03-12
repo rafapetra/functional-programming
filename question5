@@ -1,0 +1,36 @@
+/* 1. Loop through the array n times (where n is the length of the array)
+2. Within each loop iteration, compare adjacent elements and swap them if they are in the wrong order
+3. After n iterations, the array will be sorted */
+
+
+function quickSort(arr) {
+  if (arr.length <= 1) {
+    return arr;
+  }
+  
+  const pivot = arr[arr.length - 1];
+  const left = [];
+  const right = [];
+  
+  for (let i = 0; i < arr.length - 1; i++) {
+    if (arr[i] < pivot) {
+      left.push(arr[i]);
+    } else {
+      right.push(arr[i]);
+    }
+  }
+  
+  return [...quickSort(left), pivot, ...quickSort(right)];
+}
+
+const input = [9, 2, 7, 12];
+const output = quickSort(input);
+console.log(output); // [2, 7, 9, 12]
+console.log(output instanceof Array); // true
+
+/* First, we check if the input array has one or fewer elements. If it does, we know that it's already sorted, so we can return it as-is.
+We choose a pivot element from the input array. In this implementation, we choose the last element, but we could choose any other element as well.
+We create two new arrays, left and right, to hold the elements that are less than and greater than the pivot, respectively.
+We iterate over the input array (except for the pivot element), and for each element, we compare it to the pivot. If it's less than the pivot, we add it to the left array, otherwise we add it to the right array.
+We recursively call quickSort() on the left and right arrays, and concatenate the sorted left array, the pivot element, and the sorted right array to form the final sorted array.
+We return the sorted array. */

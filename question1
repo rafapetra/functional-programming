@@ -1,0 +1,62 @@
+/* Algorithm without recursion:
+
+Create an empty string to store the modified string.
+Loop through each character in the input string:
+a. If the character is a space, append "%20" to the modified string.
+b. If the character is not a space, append the character to the modified string.
+Return the modified string. */
+
+function fillTheBlank(str) {
+  let modifiedStr = '';
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === ' ') {
+      modifiedStr += '%20';
+    } else {
+      modifiedStr += str[i];
+    }
+  }
+  return modifiedStr;
+}
+
+console.log(fillTheblank('Jasmine Ann Jones')); // Output: "Jasmine%20Ann%20Jones"
+
+/* Algorithm with recursion:
+
+If the input string is empty, return an empty string.
+If the first character in the string is a space, return "%20" concatenated with the result of calling the function recursively on the rest of the string.
+If the first character is not a space, return the first character concatenated with the result of calling the function recursively on the rest of the string.
+Return the modified string. */
+
+function fillTheBlank(str) {
+  if (str.length === 0) {
+    return '';
+  } else if (str[0] === ' ') {
+    return '%20' + urlify(str.slice(1));
+  } else {
+    return str[0] + urlify(str.slice(1));
+  }
+}
+
+console.log(urlify('Jasmine Ann Jones')); // Output: "Jasmine%20Ann%20Jones"
+
+//
+
+function fillTheBlank(str) {
+  if (str.length === 0) {
+    return '';
+  } else if (str[0] === ' ') {
+    return '%20' + fillTheBlank(str.slice(1));
+  }  else {
+    return str[0] + fillTheBlank(str.slice(1));
+  }
+}
+
+/* Here's how the function works:
+
+The function checks if the input string is empty. If it is, the function returns an empty string.
+
+If the first character of the string is a space, the function calls itself recursively with the rest of the string (i.e., everything after the first character), and concatenates '%20' to the beginning of the result. This effectively replaces the first space in the string with '%20'.
+
+If the first character of the string is not a space, the function simply returns the first character of the string followed by the result of calling itself recursively with the rest of the string.
+
+The recursion works by repeatedly breaking the input string down into smaller and smaller parts, until it reaches the base case where the input string is empty. At each step of the recursion, the function checks whether the current character is a space, and either replaces it with '%20' or simply returns it, depending on the case. By recursively processing smaller and smaller pieces of the original string, the function is able to build up a modified string with all spaces replaced by '%20'. */
